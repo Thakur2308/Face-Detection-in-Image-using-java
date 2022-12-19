@@ -14,28 +14,13 @@ public class face {
 
 	public static void main(String[] args) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		
 		String imgfile="Images/IMG_20201120_160248.jpg";
-		
-		//The Mat class of OpenCV library is used to store the values of an image. 
-		//It represents an n-dimensional array and is used to store image data of grayscale or 
-		//color images, voxel volumes, vector fields, point clouds, tensors, histograms, etc.
-		
 		Mat src= Imgcodecs.imread(imgfile);
-		
 		String xmlfile="xml/lbpcascade_frontalface.xml";
-		
-		
-		//The CascadeClassifier class of is used to load the classifier file and detects the desired objects in the image.
-		
 		CascadeClassifier cc=new CascadeClassifier(xmlfile);
-		
-		
 		MatOfRect facedetection= new MatOfRect();
 		cc.detectMultiScale(src, facedetection);
-		
 		System.out.println(String.format("Detected faces: %d", facedetection.toArray().length));
-		
 		for(Rect rect:facedetection.toArray()) {
 			Imgproc.rectangle(src, new Point(rect.x,rect.y),new Point(rect.x+rect.width, rect.y+rect.height), new Scalar(0,0,255),3);
 			
